@@ -3,14 +3,18 @@
     class Foodie
     {
         public $id;
-        public $session_id;
-        public $delivery_name;
-        public $delivery_address1;
-        public $delivery_address2;
-        public $delivery_city;
-        public $delivery_state;
-        public $delivery_zip;
-        public $delivery_phone;
+        public $default_name;
+        public $default_address1;
+        public $default_address2;
+        public $default_city;
+        public $default_state;
+        public $default_zip;
+        public $default_phone;
+
+        public $email;
+        public $password;
+
+        //preferences
 
         public function __construct($data = null)
         {

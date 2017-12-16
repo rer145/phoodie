@@ -1,0 +1,23 @@
+MUST HAVES
+-----------------------------------
+
+-add to cart
+-more info page
+-checkout page
+	-fill out order details
+	-submit order
+-order completion page
+-filter by category, pricing
+-account setup/options page
+-account order history
+-favorite meals
+
+
+
+
+NICE TO HAVES
+-----------------------------------
+
+-user login/registration
+-postmates integration for deliveries?
+-pull food options from grubhub?

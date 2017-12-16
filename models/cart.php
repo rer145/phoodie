@@ -3,7 +3,9 @@
     class Cart
     {
         public $id;
+        public $foodie_id;
         public $session_id;
+        public $email;
         public $delivery_name;
         public $delivery_address1;
         public $delivery_address2;
