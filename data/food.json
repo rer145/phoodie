@@ -1,0 +1,18 @@
+{
+    "items": [
+      {
+        "name": "Burrito",
+        "price": 10.0,
+        "location": "El Canelo",
+        "description": "This is an amazing burrito",
+        "photo_url": "http://www.fillmurray.com/300/400"
+      },
+      {
+        "name": "Sub",
+        "price": 5.75,
+        "location": "Subway",
+        "description": "This is an amazing sub",
+        "photo_url": "http://www.fillmurray.com/g/300/400"
+      }
+    ]
+  }

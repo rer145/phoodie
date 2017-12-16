@@ -17,6 +17,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
         <script src="js/app.js"></script>
         <script src="js/util.js"></script>
 
@@ -30,10 +31,10 @@
                         <!-- <span class="glyphicon glyphicon-user"></span> -->
                     </div>
                     <div class="col-xs-6 text-center">
-                        <span id="logo-small">Foodie</span>
+                        <span id="logo-small"><a href="index.html">Foodie</a></span>
                     </div>
                     <div class="col-xs-3 text-right">
-                        <!-- <span class="glyphicon glyphicon-user"></span> -->
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
                     </div>
                 </div>
             </div>
@@ -55,60 +56,6 @@
                                         <a href="info.html?id=1" class="more-info btn btn-danger" data-id="1">More Info</a>
                                     </p>
                                 </div>
-                                <div id="option2-slide" class="swiper-slide">
-                                    <img src="http://www.fillmurray.com/g/300/400" /><br />
-                                    <p><strong>Food Name - $10</strong></p>
-                                    <p>Description</p>
-                                    <p><a href="#" class="add-to-cart btn btn-primary" data-id="2">Add to Cart</a></p>
-                                </div>
-                                <div id="option2-slide" class="swiper-slide">
-                                    <img src="http://www.fillmurray.com/g/300/400" /><br />
-                                    <p><strong>Food Name - $10</strong></p>
-                                    <p>Description</p>
-                                    <p><a href="#" class="add-to-cart btn btn-primary" data-id="2">Add to Cart</a></p>
-                                </div>
-                                <div id="option2-slide" class="swiper-slide">
-                                    <img src="http://www.fillmurray.com/g/300/400" /><br />
-                                    <p><strong>Food Name - $10</strong></p>
-                                    <p>Description</p>
-                                    <p><a href="#" class="add-to-cart btn btn-primary" data-id="2">Add to Cart</a></p>
-                                </div>
-                                <div id="option2-slide" class="swiper-slide">
-                                    <img src="http://www.fillmurray.com/g/300/400" /><br />
-                                    <p><strong>Food Name - $10</strong></p>
-                                    <p>Description</p>
-                                    <p><a href="#" class="add-to-cart btn btn-primary" data-id="2">Add to Cart</a></p>
-                                </div>
-                                <div id="option2-slide" class="swiper-slide">
-                                    <img src="http://www.fillmurray.com/g/300/400" /><br />
-                                    <p><strong>Food Name - $10</strong></p>
-                                    <p>Description</p>
-                                    <p><a href="#" class="add-to-cart btn btn-primary" data-id="2">Add to Cart</a></p>
-                                </div>
-                                <div id="option2-slide" class="swiper-slide">
-                                    <img src="http://www.fillmurray.com/g/300/400" /><br />
-                                    <p><strong>Food Name - $10</strong></p>
-                                    <p>Description</p>
-                                    <p><a href="#" class="add-to-cart btn btn-primary" data-id="2">Add to Cart</a></p>
-                                </div>
-                                <div id="option2-slide" class="swiper-slide">
-                                    <img src="http://www.fillmurray.com/g/300/400" /><br />
-                                    <p><strong>Food Name - $10</strong></p>
-                                    <p>Description</p>
-                                    <p><a href="#" class="add-to-cart btn btn-primary" data-id="2">Add to Cart</a></p>
-                                </div>
-                                <div id="option2-slide" class="swiper-slide">
-                                    <img src="http://www.fillmurray.com/g/300/400" /><br />
-                                    <p><strong>Food Name - $10</strong></p>
-                                    <p>Description</p>
-                                    <p><a href="#" class="add-to-cart btn btn-primary" data-id="2">Add to Cart</a></p>
-                                </div>
-                                <div id="option2-slide" class="swiper-slide">
-                                    <img src="http://www.fillmurray.com/g/300/400" /><br />
-                                    <p><strong>Food Name - $10</strong></p>
-                                    <p>Description</p>
-                                    <p><a href="#" class="add-to-cart btn btn-primary" data-id="2">Add to Cart</a></p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -117,6 +64,7 @@
         </div>
 
         <script type="text/javascript">
+            getFoodChoices();
             initSwipe();
         </script>
     </body>

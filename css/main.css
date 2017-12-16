@@ -14,3 +14,7 @@ span#logo-small {
 nav .glyphicon {
     font-size: 28px;
 }
+
+.messages {
+    display:none;
+}

@@ -41,14 +41,27 @@
         <div id="body" class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 text-center">
-                    show shit
+
+                    <div id="login-error" class="messages">
+                        <div class="alert alert-danger" role="alert">
+                            <p><span id="login-message"></span></p>
+                        </div>
+                    </div>
+
+                    <!-- <form id="login" action=""> -->
+                        <div class="form-group">
+                            <label for="email_textbox">Email</label>
+                            <input type="email" class="form-control" id="email_textbox" name="email_textbox" placeholder="Email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password_textbox">Password</label>
+                            <input type="password" class="form-control" id="password_textbox" name="password_textbox" placeholder="Password" />
+                        </div>
+                        <a href="#" id="login-button" class="btn btn-primary">Login</a>
+                    <!-- </form> -->
                 </div>
             </div>
         </div>
-
-        <script type="text/javascript">
-            loadFoodInfo();
-        </script>
         
     </body>
 </html>
