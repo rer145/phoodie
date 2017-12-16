@@ -28,29 +28,7 @@
         <title>Phoodie</title>
     </head>
     <body>
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="choose.php">Phoodie</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="cart.php">My Cart</a></li>
-                        <li><a href="choose.php">Find Food</a></li>
-                        <li><a href="account.php">My Account</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="logout.php">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        
+        <?php include_once('nav.php'); ?>
         
         <div id="body" class="container-fluid">
             <div class="row">
@@ -65,6 +43,21 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div id="food-info">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title pull-left">More Information</h3>
+                    <button type="button" id="food-info-close" class="close pull-right" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="panel-body">
+                    <p><span id="food-info-name"></span><br />
+                    from: <span id="food-info-restaurant"></span></p>
+                    <p><span id="food-info-description"></span></p>
+                    <p><strong>Price: </strong> <span id="food-info-price"></span></p>
+                </div>
+            </div> 
         </div>
 
         <script type="text/javascript">

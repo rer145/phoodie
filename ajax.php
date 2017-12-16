@@ -43,6 +43,27 @@
         }
     }
 
+    if ($method == 'get_food_info') {
+        try {
+            $id = $_GET["id"];
+
+            $stmt = $conn->prepare('
+                SELECT *
+                FROM food
+                WHERE id = :id
+            ');
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Food');
+            $food = $stmt->fetch();
+
+            echo json_encode($food);
+        } catch (Exception $err) {
+            echo $err->getMessage();
+        }
+    }
+
     if ($method == 'validate_user') {
         try {
             $email = $_GET["email"];

@@ -1,12 +1,10 @@
 MUST HAVES
 -----------------------------------
 
--more info slide up
--update slider panel with restaurant
 -confirm purchase page with address/cc
+	-wire up alt address/cc fields
 -account order history
 -favorite meals
--delivery fee $3 x different restaurants ($0 when empty)
 -fix session/login/signup issues
 
 

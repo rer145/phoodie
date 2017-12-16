@@ -3,11 +3,15 @@ body {
     
 }
 
-nav,
-.navbar-brand,
-#navbar {
+nav, 
+.navbar-brand {
     background-color: #f70d1a !important;
     color: #fff !important;
+}
+
+#navbar,
+.navbar-header button {
+    background-color: #eee !important;
 }
 
 /* nav li.active {
@@ -49,6 +53,19 @@ nav .glyphicon {
 }
 
 #temp-address-form,
-#temp-cc-form {
+#temp-cc-form,
+#food-info {
     display:none;
 }
+
+#food-info {
+    position:absolute;
+    z-index: 1000;
+    width: 95%;
+    bottom: 0;
+    left: 8px;
+}
+
+    #food-info .panel-heading {
+        min-height: 45px;
+    }

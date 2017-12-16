@@ -25,6 +25,17 @@ $(document).ready(function () {
         removeFromCart(id);
     });
 
+    $('body').on('click', '.more-info', function() {
+        id = $(this).data('id');
+        console.log(id);
+        loadFoodInfo(id);
+    });
+
+    $("#food-info-close").click(function() {
+        $("#food-info").hide();
+        return false;
+    });
+
     $('#signup-button').click(function() {
         name = $('#name_textbox').val();
         email = $('#email_textbox').val();
@@ -161,7 +172,7 @@ function getFoodChoices() {
             if (food.length > 0) {
                 var items = [];
                 for (var i = 0; i < food.length; i++) {
-                    items.push('<div id="option' + food[i].id + '-slide" class="swiper-slide"><img src="img/' + food[i].photo_url + '" class="img-responsive" /><br /><p><strong>' + food[i].name + ' - $' + food[i].price + '</strong></p><p>' + food[i].description + '</p><p class="text-center"><div class="row"><div class="col-xs-4 text-center"><a href="#" class="add-to-cart btn btn-success" data-id="' + food[i].id + '"><span class="glyphicon glyphicon-plus-sign"></span></a></div><div class="col-xs-4 text-center"><a href="info.php?id=' + food[i].id + '" class="more-info btn btn-info" data-id="' + food[i].id + '"><span class="glyphicon glyphicon-info-sign"></span></a></div><div class="col-xs-4 text-center"><a href="cart.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span></a></div></div></p></div>');
+                    items.push('<div id="option' + food[i].id + '-slide" class="swiper-slide"><img src="img/' + food[i].photo_url + '" class="img-responsive" /><br /><p><strong>' + food[i].name + ' - $' + food[i].price + '</strong></p><p>' + food[i].restaurant + '</p><p class="text-center"><div class="row"><div class="col-xs-4 text-center"><a href="#" class="add-to-cart btn btn-success" data-id="' + food[i].id + '"><span class="glyphicon glyphicon-plus-sign"></span></a></div><div class="col-xs-4 text-center"><a href="#" class="more-info btn btn-info" data-id="' + food[i].id + '"><span class="glyphicon glyphicon-info-sign"></span></a></div><div class="col-xs-4 text-center"><a href="cart.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span></a></div></div></p></div>');
                 }
                 $('.swiper-wrapper').html(items.join(""));
             }
@@ -227,9 +238,11 @@ function removeFromCart(id) {
 }
 
 function loadCart() {
-    subtotal = 0;
-    deliveryfee = 3.0;
-    total = 0;
+    var subtotal = 0;
+    var deliveryfee = 1.50;
+    var total = 0;
+
+    var items = [];
 
     $.when(
         $.ajax({
@@ -241,7 +254,6 @@ function loadCart() {
             console.log(data);
             
             if (data != "" && data.length > 0) {
-                var items = [];
                 for (var i = 0; i < data.length; i++) {
                     items.push('<div id="cartitem-' + data[i].id + '"><div class="row form-inline"><div class="col-xs-8 text-left">' + data[i].name + '<br /><a href="#" class="remove-cart small" data-id="' + data[i].id + '">Remove</a></div><div class="col-xs-4 text-right">$' + data[i].price + '</div></div><hr /></div>');
 
@@ -254,12 +266,18 @@ function loadCart() {
         }).fail(function(msg) {
             console.log(msg);
         })
-    );
+    ).then(function() {
+        if (items.length == 0) {
+            deliveryfee = 0.0;
+        } else {
+            deliveryfee *= items.length;
+        }
 
-    total = subtotal + deliveryfee;
-    $("#cart-subtotal").html(formatCurrency(subtotal));
-    $("#cart-deliveryfee").html(formatCurrency(deliveryfee));
-    $("#cart-total").html(formatCurrency(total));
+        total = subtotal + deliveryfee;
+        $("#cart-subtotal").html(formatCurrency(subtotal));
+        $("#cart-deliveryfee").html(formatCurrency(deliveryfee));
+        $("#cart-total").html(formatCurrency(total));
+    });
 }
 
 function showEmptyCart() {
@@ -267,11 +285,24 @@ function showEmptyCart() {
 }
 
 function loadFoodInfo(id) {
-    if (!id) {
-        id = getParameterByName('id');
-    }
-
-    console.log(id);
+    $.when(
+        $.ajax({
+            url: 'ajax.php',
+            dataType: 'json',
+            method: 'GET',
+            data: { method: "get_food_info", id: id }
+        }).done(function(data) {
+            console.log("done: " + JSON.stringify(data));
+            $("#food-info-name").html(data.name);
+            $("#food-info-restaurant").html(data.restaurant);
+            $("#food-info-description").html(data.description);
+            $("#food-info-price").html(formatCurrency(data.price));
+        }).fail(function(msg) {
+            console.log("fail: " + JSON.stringify(msg));
+        })
+    ).then(function() {
+        $("#food-info").show();
+    });
 }
 
 function loadAccountInfo() {
