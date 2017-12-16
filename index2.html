@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My App</title>
+    <meta name="viewport" content="width=device-width,
+                                   initial-scale=1.0,
+                                   maximum-scale=1.0,
+                                   user-scalable=no,
+                                   minimal-ui">
+    <link rel="stylesheet" href="https://cdn.kik.com/app/3.0.0/app.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
+
+    <style>
+      /* put your styles here */
+    </style>
+  </head>
+  <body>
+    
+    
+    <div class="app-page" data-page="home">
+        <div class="app-topbar">
+            <div class="app-title">Phoodie</div>
+        </div>
+        <div class="app-content">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div id="option1-slide" class="swiper-slide">
+                        <img src="http://www.fillmurray.com/300/400" /><br />
+                        <p><strong>Food Name - $10</strong></p>
+                        <p>Description</p>
+                        <p><a href="#" class="add-to-cart btn btn-primary" data-id="1">Add to Cart</a></p>
+                    </div>
+                    <div id="option1-slide" class="swiper-slide">
+                        <img src="http://www.fillmurray.com/g/300/400" /><br />
+                        <p><strong>Food Name - $10</strong></p>
+                        <p>Description</p>
+                        <p><a href="#" class="add-to-cart btn btn-primary" data-id="1">Add to Cart</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="http://zeptojs.com/zepto.min.js"></script>
+    <script src="http://cdn.kik.com/app/3.0.0/app.min.js"></script>
+    <script>
+        App.load('home');
+
+        App.controller('home', function (page) {
+            $(page)
+                .find('.app-button')
+                .on('click', function () {
+                console.log('button was clicked!');
+            });
+
+        var swiper = new Swiper('.swiper-container', {
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                coverflowEffect: {
+                    rotate: 50,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 1,
+                    slideShadows : true,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            });
+        });
+    </script>
+  </body>
+</html>

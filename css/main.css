@@ -1,8 +1,16 @@
-.page {
-    display:none;
+body {
+    margin-top: 75px;
 }
 
 .swiper-container {
-    width: 600px;
     height: 500px;
+}
+
+span#logo-small {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+nav .glyphicon {
+    font-size: 28px;
 }
