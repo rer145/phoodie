@@ -36,6 +36,28 @@ $(document).ready(function () {
         password = $('#password_textbox').val();
         loginUser(email, password)
     });
+
+    $("#address-button").click(function() {
+        address1 = $("#address1_textbox").val();
+        address2 = $("#address2_textbox").val();
+        city = $("#city_textbox").val();
+        state = $("#state_dropdown").val();
+        zip = $("#zip_textbox").val();
+        phone = $("#phone_textbox").val();
+        updateDefaultAddress(address1, address2, city, state, zip, phone);
+        return false;
+    });
+
+    $("#cc-button").click(function() {
+        name = $("#ccname_textbox").val();
+        number = $("#ccnumber_textbox").val();
+        cvv = $("#cccvv_textbox").val();
+        expmo = $("#ccexpmo_textbox").val();
+        expyr = $("#ccexpyr_textbox").val();
+        zip = $("#cczip_textbox").val();
+        updateDefaultCC(name, number, cvv, expmo, expyr, zip);
+        return false;
+    });
 });
 
 function registerUser(email, password) {
@@ -50,7 +72,7 @@ function registerUser(email, password) {
             $('#signup-error').show();
             $('#error-message').val(data.message);
         } else {
-            window.location.href = 'login.php';
+            window.location.href = 'account.php';
         }
     }).fail(function(msg) {
         console.log(msg);
@@ -147,7 +169,7 @@ function addToCart(id) {
             $("#cart-success").slideUp(500, function() {
                 $(this).hide();
             });
-        }, 1500);
+        }, 1000);
     });
 }
 
@@ -176,7 +198,7 @@ function removeFromCart(id) {
             $("#cart-success").slideUp(500, function() {
                 $(this).hide();
             });
-        }, 1500);
+        }, 1000);
     });
 }
 
@@ -227,6 +249,78 @@ function loadFoodInfo(id) {
 
     console.log(id);
 }
+
+function loadAccountInfo() {
+    $.ajax({
+        url: 'ajax.php',
+        dataType: 'json',
+        method: 'GET',
+        data: { method: "get_account" }
+    }).done(function(data) {
+        console.log("done: " + data);
+        $("#address1_textbox").val(data.default_address1);
+        $("#address2_textbox").val(data.default_address2);
+        $("#city_textbox").val(data.default_city);
+        $("#state_dropdown").val(data.default_state);
+        $("#zip_textbox").val(data.default_zip);
+        $("#phone_textbox").val(data.default_phone);
+
+        $("#ccname_textbox").val(data.default_cc_name);
+        $("#ccnumber_textbox").val(data.default_cc_number);
+        $("#cccvv_textbox").val(data.default_cc_cvv);
+        $("#ccexpmo_dropdown").val(data.default_cc_expmo);
+        $("#ccexpyr_textbox").val(data.default_cc_expyr);
+        $("#cczip_textbox").val(data.default_cc_zip);
+    }).fail(function(msg) {
+        console.log("fail: " + JSON.stringify(msg));
+    });
+}
+
+
+function updateDefaultAddress(address1, address2, city, state, zip, phone) {
+    $.when(
+        $.ajax({
+            url: 'ajax.php',
+            dataType: 'json',
+            method: 'GET',
+            data: { method: "update_address", address1: address1, address2: address2, city: city, state: state, zip: zip, phone: phone }
+        }).done(function(data) {
+            console.log("done: " + data);
+        }).fail(function(msg) {
+            console.log("fail: " + JSON.stringify(msg));
+        })
+    ).then(function() {
+        $("#address-success").show();
+        window.setTimeout(function() {
+            $("#address-success").slideUp(500, function() {
+                $(this).hide();
+            });
+        }, 1000);
+    });
+}
+
+function updateDefaultCC(name, number, cvv, expmo, expyr, zip) {
+    $.when(
+        $.ajax({
+            url: 'ajax.php',
+            dataType: 'json',
+            method: 'GET',
+            data: { method: "update_cc", name: name, number: number, cvv: cvv, expmo: expmo, expyr: expyr, zip: zip }
+        }).done(function(data) {
+            console.log("done: " + data);
+        }).fail(function(msg) {
+            console.log("fail: " + JSON.stringify(msg));
+        })
+    ).then(function() {
+        $("#cc-success").show();
+        window.setTimeout(function() {
+            $("#cc-success").slideUp(500, function() {
+                $(this).hide();
+            });
+        }, 1000);
+    });
+}
+
 
 
 function formatCurrency(val) {

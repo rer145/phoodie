@@ -14,7 +14,12 @@
         public $email;
         public $password;
 
-        //preferences
+        public $default_cc_name;
+        public $default_cc_number;
+        public $default_cc_cvv;
+        public $default_cc_exp_mo;
+        public $default_cc_exp_yr;
+        public $default_cc_zip;
 
         public function __construct($data = null)
         {

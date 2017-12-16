@@ -1,23 +1,17 @@
 MUST HAVES
 -----------------------------------
 
--add to cart
--more info page
--checkout page
-	-fill out order details
-	-submit order
--order completion page
--filter by category, pricing
--account setup/options page
+-more info slide up
+-update slider panel with restaurant
+-confirm purchase page with address/cc
 -account order history
 -favorite meals
-
+-delivery fee $3 x different restaurants ($0 when empty)
 
 
 
 NICE TO HAVES
 -----------------------------------
-
--user login/registration
 -postmates integration for deliveries?
 -pull food options from grubhub?
+-filter by category, pricing

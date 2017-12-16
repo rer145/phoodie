@@ -117,6 +117,9 @@
                 $stmt->setFetchMode(PDO::FETCH_CLASS, 'Foodie');
                 $foodie = $stmt->fetch();
                 echo json_encode($foodie);
+
+                $_SESSION["user_id"] = $id;
+                $_SESSION["user_email"] = $foodie->email;
             }
         } catch (Exception $err) {
             echo $err->getMessage();
@@ -227,6 +230,164 @@
                 echo json_encode($items);
             } else {
                 echo '{}';
+            }
+        } catch (Exception $err) {
+            echo $err->getMessage();
+        }
+    }
+
+    if ($method == 'get_address') {
+        try {
+            $id = $_SESSION["user_id"];
+
+            $stmt = $conn->prepare('
+                SELECT * FROM foodie WHERE id = :id
+            ');
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Foodie');
+            $foodie = $stmt->fetch();
+
+            if (count($foodie) > 0) {
+                if (isset($foodie->default_address1)) {
+                    //continue
+                } else {
+                    //go to account to set
+                }
+            } else {
+                $err = new Err;
+                $err->code = 2;
+                $err->message = "Invalid user. Please logout and try again..";
+                echo json_encode($err);
+            }
+        } catch (Exception $err) {
+            echo $err->getMessage();
+        }
+    }
+
+    if ($method == 'get_account') {
+        try {
+            $id = $_SESSION["user_id"];
+
+            $stmt = $conn->prepare('
+                SELECT * FROM foodie WHERE id = :id
+            ');
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Foodie');
+            $foodie = $stmt->fetch();
+
+            if (count($foodie) > 0) {
+                echo json_encode($foodie);
+            } else {
+                $err = new Err;
+                $err->code = 2;
+                $err->message = "Invalid user. Please logout and try again..";
+                echo json_encode($err);
+            }
+        } catch (Exception $err) {
+            echo $err->getMessage();
+        }
+    }
+
+    if ($method == 'update_address') {
+        try {
+            $id = $_SESSION["user_id"];
+            $address1 = $_GET["address1"];
+            $address2 = $_GET["address2"];
+            $city = $_GET["city"];
+            $state = $_GET["state"];
+            $zip = $_GET["zip"];
+            $phone = $_GET["phone"];
+
+            $stmt = $conn->prepare('
+                SELECT * FROM foodie WHERE id = :id
+            ');
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Foodie');
+            $foodie = $stmt->fetch();
+
+            if (count($foodie) > 0) {
+                $stmt = $conn->prepare('
+                    UPDATE foodie SET
+                        default_address1 = :address1,
+                        default_address2 = :address2,
+                        default_city= :city,
+                        default_state = :state,
+                        default_zip = :zip,
+                        default_phone = :phone
+                    WHERE id = :id
+                ');
+                $stmt->bindParam(':address1', $address1);
+                $stmt->bindParam(':address2', $address2);
+                $stmt->bindParam(':city', $city);
+                $stmt->bindParam(':state', $state);
+                $stmt->bindParam(':zip', $zip);
+                $stmt->bindParam(':phone', $phone);
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+
+                echo '{}';
+            } else {
+                $err = new Err;
+                $err->code = 2;
+                $err->message = "Invalid user. Please logout and try again..";
+                echo json_encode($err);
+            }
+        } catch (Exception $err) {
+            echo $err->getMessage();
+        }
+    }
+
+    if ($method == 'update_cc') {
+        try {
+            $id = $_SESSION["user_id"];
+            $name = $_GET["name"];
+            $number = $_GET["number"];
+            $cvv = $_GET["cvv"];
+            $expmo = $_GET["expmo"];
+            $expyr = $_GET["expyr"];
+            $zip = $_GET["zip"];
+
+            $stmt = $conn->prepare('
+                SELECT * FROM foodie WHERE id = :id
+            ');
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Foodie');
+            $foodie = $stmt->fetch();
+
+            if (count($foodie) > 0) {
+                $stmt = $conn->prepare('
+                    UPDATE foodie SET
+                        default_cc_name = :name,
+                        default_cc_number = :number,
+                        default_cc_cvv = :cvv,
+                        default_cc_exp_mo = :expmo,
+                        default_cc_exp_yr = :expyr,
+                        default_cc_zip = :zip
+                    WHERE id = :id
+                ');
+                $stmt->bindParam(':name', $name);
+                $stmt->bindParam(':number', $number);
+                $stmt->bindParam(':cvv', $cvv);
+                $stmt->bindParam(':expmo', $expmo);
+                $stmt->bindParam(':expyr', $expyr);
+                $stmt->bindParam(':zip', $zip);
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+
+                echo '{}';
+            } else {
+                $err = new Err;
+                $err->code = 2;
+                $err->message = "Invalid user. Please logout and try again..";
+                echo json_encode($err);
             }
         } catch (Exception $err) {
             echo $err->getMessage();
