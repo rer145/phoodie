@@ -99,7 +99,7 @@ function initSwipe() {
 }
 
 function addToCart(id) {
-    
+
 }
 
 function loadFoodInfo(id) {
@@ -111,17 +111,27 @@ function loadFoodInfo(id) {
 }
 
 function getFoodChoices() {
-    $.getJSON( "data/food.json", function( data ) {
-        var items = [];
-        $.each( data.items, function( key, val ) {
-            items.push('<div id="option' + key + '-slide" class="swiper-slide"><img src="' + val.photo_url + '" /><br /><p><strong>' + val.name + ' - $' + val.price + '</strong></p><p>' + val.description + '</p><p><a href="#" class="add-to-cart btn btn-primary" data-id="' + key + '">Add to Cart</a> <a href="info.html?id=' + key + '" class="more-info btn btn-danger" data-id="' + key + '">More Info</a></p></div>');
-        });
+    $.when(
+        $.ajax({
+            url: 'ajax.php',
+            dataType: 'json',
+            method: 'GET',
+            data: { method: "get_food" }
+        }).done(function(data) {
+            console.log(data);
 
-        $('.swiper-wrapper').html(items.join(""));
-
-        // $( "<ul/>", {
-        //     "class": "my-new-list",
-        //     html: items.join( "" )
-        // }).appendTo( "body" );
+            var food = data;
+            if (food.length > 1) {
+                var items = [];
+                for (var i = 0; i < food.length; i++) {
+                    items.push('<div id="option' + food[i].id + '-slide" class="swiper-slide"><img src="' + food[i].photo_url + '" /><br /><p><strong>' + food[i].name + ' - $' + food[i].price + '</strong></p><p>' + food[i].description + '</p><p><a href="#" class="add-to-cart btn btn-primary" data-id="' + food[i].id + '">Add to Cart</a> <a href="info.html?id=' + food[i].id + '" class="more-info btn btn-danger" data-id="' + food[i].id + '">More Info</a></p></div>');
+                }
+                $('.swiper-wrapper').html(items.join(""));
+            }
+        }).fail(function(msg) {
+            console.log(msg);
+        })
+    ).then(function() {
+        initSwipe();
     });
 }
