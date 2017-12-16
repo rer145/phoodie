@@ -1,15 +1,52 @@
+var cart = '';
+
 $(document).ready(function () {
-    var mySwiper = new Swiper ('.swiper-container', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: false
+    changePage('home');
+
+    $('#login-button').click(function() {
+        changePage('swipe');
     });
 
-    function loadFoodSlides() {
-        
+    $('.add-to-cart').click(function() {
+        id = $(this).data('id');
+        console.log(id);
+        addToCart(id);
+    });
+
+    function changePage(p) {
+        $('.page').hide();
+        $('#' + p + '-page').show();
+
+        if (p == 'swipe') {
+            initSwipe();
+        }
     }
 
-    function updateFoodPreference() {
+    function initSwipe() {
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows : true,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        });
+    
+        swiper.on('slideChange', function() {
+            //remove slide from list, depending on right/left
+            //console.log(swiper);
+        });
+    }
+
+    function addToCart(id) {
 
     }
 });

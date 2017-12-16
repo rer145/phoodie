@@ -4,6 +4,12 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <meta name="viewport" content="width=device-width,
+                initial-scale=1.0,
+                maximum-scale=1.0,
+                user-scalable=no,
+                minimal-ui">
+        <link rel="stylesheet" href="//cdn.kik.com/app/3.0.0/app.min.css"> -->
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
@@ -24,37 +30,47 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-md-10">
+                <div class="col-xs-12">
                     <h1 class="text-center">Phoodie</h1>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-md-10">
-                    <div class="text-center center-block">
+
+            <div id="home-page" class="page">
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <p><a id="login-button" href="#" class="btn btn-lg btn-primary">Login</a></p>
+                        <p><a id="signup-button" href="#" class="btn btn-lg btn-info">Sign Up</a></p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="swipe-page" class="page">
+                <div class="row">
+                    <div class="col-xs-12">
                         <div class="well">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
-                                    <div id="option1-slide" class="swiper-slide"><img src="http://www.fillmurray.com/g/300/400" class="img-responsive" /></div>
-                                    <div id="option2-slide" class="swiper-slide"><img src="http://www.fillmurray.com/300/400" class="img-responsive" /></div>
-                                    <div id="option3-slide" class="swiper-slide"><img src="http://www.fillmurray.com/g/300/400" class="img-responsive" /></div>
-                                    <div id="option4-slide" class="swiper-slide"><img src="http://www.fillmurray.com/300/400" class="img-responsive" /></div>
-                                    <div id="option5-slide" class="swiper-slide"><img src="http://www.fillmurray.com/300/400" class="img-responsive" /></div>
-                                    <div id="option6-slide" class="swiper-slide"><img src="http://www.fillmurray.com/g/300/400" class="img-responsive" /></div>
-                                    <div id="option7-slide" class="swiper-slide"><img src="http://www.fillmurray.com/g/300/400" class="img-responsive" /></div>
-                                    <div id="option8-slide" class="swiper-slide"><img src="http://www.fillmurray.com/g/300/400" class="img-responsive" /></div>
+                                    <div id="option1-slide" class="swiper-slide">
+                                        <img src="http://www.fillmurray.com/300/400" /><br />
+                                        <p><strong>Food Name - $10</strong></p>
+                                        <p>Description</p>
+                                        <p><a href="#" class="add-to-cart btn btn-primary" data-id="1">Add to Cart</a></p>
+                                    </div>
+                                    <div id="option2-slide" class="swiper-slide">
+                                        <img src="http://www.fillmurray.com/g/300/400" /><br />
+                                        <p><strong>Food Name - $10</strong></p>
+                                        <p>Description</p>
+                                        <p><a href="#" class="add-to-cart btn btn-primary" data-id="2">Add to Cart</a></p>
+                                    </div>
                                 </div>
-                                <div class="swiper-pagination"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-md-10">
-                    <h2>Food Name</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae sollicitudin nisl. In tempus enim leo, vel ultrices eros laoreet in. Pellentesque condimentum commodo sapien, in faucibus ex eleifend id. Nulla suscipit consequat molestie. Suspendisse massa odio, molestie pharetra turpis vitae, feugiat cursus diam.</p>
-                </div>
-            </div>
+
+            
         </div>
 
         
