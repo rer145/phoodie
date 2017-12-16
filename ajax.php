@@ -176,6 +176,28 @@
                 $stmt->setFetchMode(PDO::FETCH_CLASS, 'CartItem');
                 $cart = $stmt->fetch();
             }
+
+            echo '{}';
+        } catch (Exception $err) {
+            echo $err->getMessage();
+        }
+    }
+
+    if ($method == 'remove_from_cart') {
+        try {
+            $id = $_GET["id"];
+            $sid = session_id();
+
+            //check if cart is started
+            if (isset($_SESSION["cart_id"])) {
+                $stmt = $conn->prepare('
+                    DELETE FROM cartitem WHERE id = :id
+                ');
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+            }
+
+            echo '{}';
         } catch (Exception $err) {
             echo $err->getMessage();
         }
@@ -203,6 +225,8 @@
                 $items = $stmt->fetchAll();
 
                 echo json_encode($items);
+            } else {
+                echo '{}';
             }
         } catch (Exception $err) {
             echo $err->getMessage();

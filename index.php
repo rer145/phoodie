@@ -25,8 +25,8 @@
         <div id="body" class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 text-center">
-                    <p><img src="http://www.fillmurray.com/400/200" class="img-responsive" /></p>
-                    <p>Swipe. Eat. Repeat.</p>
+                    <p><img src="img/phoodielogo.jpg" class="img-responsive" /></p>
+                    <p>Connecting Eaterz2Eatz</p>
                     <p><a id="login-button" href="login.php" class="btn btn-lg btn-primary">Login</a></p>
                     <p><a id="signup-button" href="signup.php" class="btn btn-lg btn-info">Sign Up</a></p>
                 </div>

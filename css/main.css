@@ -1,11 +1,21 @@
 body {
     margin-top: 75px;
-    background-color: #f70d1a;
-    color: #fff;
+    
 }
 
+nav,
+.navbar-brand,
+#navbar {
+    background-color: #f70d1a !important;
+    color: #fff !important;
+}
+
+/* nav li.active {
+    background-color: #ff5360;
+} */
+
 .swiper-container {
-    height: 500px;
+    height: 575px;
 }
 
 span#logo-small {
@@ -23,9 +33,17 @@ nav .glyphicon {
 
 .well {
     color: #000;
-    background-color: #c0c0c0;
+    background-color: #eee;
 }
 
-.page-logo {
+.page-logo,
+.page-title {
     font-size: 32px;
+}
+
+#page-home,
+#page-login,
+#page-signup {
+    background-color: #b80300;
+    color: #fff;
 }

@@ -52,7 +52,13 @@
             <div class="row">
                 <div class="col-xs-12 text-center">
                     <p><span class="page-logo glyphicon glyphicon-shopping-cart"></span></p>
-                    <p>&nbsp;</p>
+                    <hr />
+                    <div id="cart-success" class="alert alert-success messages" role="alert">
+                        <p class="text-center"><span id="cart-success-message"></span></p>
+                    </div>
+                    <div id="cart-fail" class="alert alert-danger messages" role="alert">
+                        <p class="text-center"><span id="cart-fail-message"></span></p>
+                    </div>
                     <div id="cart"></div>
                     <div class="row">
                         <div class="col-xs-6 col-xs-offset-6 text-right">
@@ -62,7 +68,7 @@
                         </div>
                     </div>
                     <p>&nbsp;</p>
-                    <p><a href="choose.php" class="btn btn-lg btn-default">Continue Swiping</a></p>
+                    <p class="text-center"><a href="choose.php" class="btn btn-lg btn-default">Continue Swiping</a></p>
                     <p><a href="" class="btn btn-lg btn-primary">Checkout</a></p>
                 </div>
             </div>

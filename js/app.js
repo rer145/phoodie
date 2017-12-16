@@ -19,6 +19,12 @@ $(document).ready(function () {
         addToCart(id);
     });
 
+    $('body').on('click', '.remove-cart', function() {
+        id = $(this).data('id');
+        console.log(id);
+        removeFromCart(id);
+    });
+
     $('#signup-button').click(function() {
         email = $('#email_textbox').val();
         password = $('#password_textbox').val();
@@ -109,7 +115,7 @@ function getFoodChoices() {
             if (food.length > 0) {
                 var items = [];
                 for (var i = 0; i < food.length; i++) {
-                    items.push('<div id="option' + food[i].id + '-slide" class="swiper-slide"><img src="' + food[i].photo_url + '" /><br /><p><strong>' + food[i].name + ' - $' + food[i].price + '</strong></p><p>' + food[i].description + '</p><p><a href="#" class="add-to-cart btn btn-primary" data-id="' + food[i].id + '">Add to Cart</a> <a href="info.php?id=' + food[i].id + '" class="more-info btn btn-danger" data-id="' + food[i].id + '">More Info</a></p></div>');
+                    items.push('<div id="option' + food[i].id + '-slide" class="swiper-slide"><img src="img/' + food[i].photo_url + '" class="img-responsive" /><br /><p><strong>' + food[i].name + ' - $' + food[i].price + '</strong></p><p>' + food[i].description + '</p><p class="text-center"><div class="row"><div class="col-xs-4 text-center"><a href="#" class="add-to-cart btn btn-success" data-id="' + food[i].id + '"><span class="glyphicon glyphicon-plus-sign"></span></a></div><div class="col-xs-4 text-center"><a href="info.php?id=' + food[i].id + '" class="more-info btn btn-info" data-id="' + food[i].id + '"><span class="glyphicon glyphicon-info-sign"></span></a></div><div class="col-xs-4 text-center"><a href="cart.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span></a></div></div></p></div>');
                 }
                 $('.swiper-wrapper').html(items.join(""));
             }
@@ -129,16 +135,56 @@ function addToCart(id) {
             method: 'GET',
             data: { method: "add_to_cart", id: id }
         }).done(function(data) {
-            console.log(data);
-            //update cart item, show checkout button
-            //show message
+            console.log("done: " + data);
         }).fail(function(msg) {
-            console.log(msg);
+            console.log("fail: " + msg);
         })
-    );
+    ).then(function() {
+        console.log("show modal");
+        $("#cart-success").show();
+        console.log("slide up");
+        window.setTimeout(function() {
+            $("#cart-success").slideUp(500, function() {
+                $(this).hide();
+            });
+        }, 1500);
+    });
+}
+
+function removeFromCart(id) {
+    $.when(
+        $.ajax({
+            url: 'ajax.php',
+            dataType: 'json',
+            method: 'GET',
+            data: { method: "remove_from_cart", id: id }
+        }).done(function(data) {
+            console.log("done: " + data);
+            $("#cartitem-" + id).remove();
+            if ($("#cart").empty()) {
+                showEmptyCart();
+            }
+        }).fail(function(msg) {
+            console.log("fail: " + msg);
+        })
+    ).then(function() {
+        console.log("show modal");
+        $("#cart-success").show();
+        $("#cart-success-message").html("Item was removed successfully!");
+        console.log("slide up");
+        window.setTimeout(function() {
+            $("#cart-success").slideUp(500, function() {
+                $(this).hide();
+            });
+        }, 1500);
+    });
 }
 
 function loadCart() {
+    subtotal = 0;
+    deliveryfee = 3.0;
+    total = 0;
+
     $.when(
         $.ajax({
             url: 'ajax.php',
@@ -147,26 +193,31 @@ function loadCart() {
             data: { method: "get_cart" }
         }).done(function(data) {
             console.log(data);
-            if (data.length > 0) {
+            
+            if (data != "" && data.length > 0) {
                 var items = [];
-                subtotal = 0;
-                deliveryfee = 3.0;
-                total = 0;
                 for (var i = 0; i < data.length; i++) {
-                    items.push('<div class="row form-inline"><div class="col-xs-8 text-left">' + data[i].name + '<br />Qty: <input type="text" maxlength="2" class="form-control" width="20" value="' + data[i].quantity + '" /> <a href="" class="small">Update</a> / <a href="" class="small">Remove</a></div><div class="col-xs-4 text-right">$' + data[i].price + '</div></div>');
+                    items.push('<div id="cartitem-' + data[i].id + '"><div class="row form-inline"><div class="col-xs-8 text-left">' + data[i].name + '<br /><a href="#" class="remove-cart small" data-id="' + data[i].id + '">Remove</a></div><div class="col-xs-4 text-right">$' + data[i].price + '</div></div><hr /></div>');
 
-                    subtotal += data[i].price * data[i].quantity;
+                    subtotal += (data[i].price * data[i].quantity);
                 }
-                total = subtotal + deliveryfee;
                 $('#cart').html(items.join(""));
-                $("#cart-subtotal").html(formatCurrency(subtotal));
-                $("#cart-deliveryfee").html(formatCurrency(deliveryfee));
-                $("#cart-total").html(formatCurrency(total));
+            } else {
+                showEmptyCart();
             }
         }).fail(function(msg) {
             console.log(msg);
         })
     );
+
+    total = subtotal + deliveryfee;
+    $("#cart-subtotal").html(formatCurrency(subtotal));
+    $("#cart-deliveryfee").html(formatCurrency(deliveryfee));
+    $("#cart-total").html(formatCurrency(total));
+}
+
+function showEmptyCart() {
+    $("#cart").html('<div class="row"><div class="col-xs-12 text-center"><p>There are no items in your cart. <a href="choose.php">Start Swiping!</a></p></div></div>');
 }
 
 function loadFoodInfo(id) {

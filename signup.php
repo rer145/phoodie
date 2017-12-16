@@ -21,26 +21,16 @@
         
         <title>Phoodie</title>
     </head>
-    <body>
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-3 text-left">
-                        <!-- <span class="glyphicon glyphicon-user"></span> -->
-                    </div>
-                    <div class="col-xs-6 text-center">
-                        <span id="logo-small"><a href="index.html">Phoodie</a></span>
-                    </div>
-                    <div class="col-xs-3 text-right">
-                        <!-- <span class="glyphicon glyphicon-user"></span> -->
-                    </div>
-                </div>
-            </div>
-        </nav>
-        
+    <body id="page-signup">
         <div id="body" class="container-fluid">
             <div class="row">
                 <div class="col-xs-12">
+
+                    <p><img src="img/phoodielogo.jpg" class="img-responsive" /></p>
+
+                    <p class="page-title text-center">
+                        Sign Up
+                    </p>
 
                     <div id="signup-error" class="messages">
                         <div class="alert alert-danger" role="alert">
@@ -59,6 +49,10 @@
                         </div>
                         <a href="#" id="signup-button" class="btn btn-primary">Sign Up</a>
                     </form>
+
+                    <p>&nbsp;</p>
+                    
+                    <p class="small">Already have an account? <a href="login.php">Login Now</a></p>
 
                 </div>
             </div>

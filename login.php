@@ -24,9 +24,13 @@
     <body id="page-login">
         <div id="body" class="container-fluid">
             <div class="row">
-                <div class="col-xs-12 text-center">
+                <div class="col-xs-12">
 
-                    <p><img src="http://www.fillmurray.com/200/100" class="img-responsive center-block" /></p>
+                    <p><img src="img/phoodielogo.jpg" class="img-responsive center-block" /></p>
+
+                    <p class="page-title text-center">
+                        <span class="glyphicon glyphicon-lock"></span> Login
+                    </p>
 
                     <div id="login-error" class="messages">
                         <div class="alert alert-danger" role="alert">
@@ -45,6 +49,10 @@
                         </div>
                         <a href="#" id="login-button" class="btn btn-primary">Login</a>
                     </form>
+
+                    <p>&nbsp;</p>
+
+                    <p class="small">No Account? <a href="signup.php">Sign Up for free</a></p>
                 </div>
             </div>
         </div>

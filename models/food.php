@@ -9,6 +9,7 @@
         public $photo_url;
         public $restaurant;
         public $location;
+        public $category;
 
         public function __construct($data = null)
         {

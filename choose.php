@@ -55,19 +55,12 @@
         <div id="body" class="container-fluid">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="well">
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div id="option1-slide" class="swiper-slide">
-                                    <img src="http://www.fillmurray.com/300/400" /><br />
-                                    <p><strong>Food Name - $10</strong></p>
-                                    <p>Description</p>
-                                    <p>
-                                        <a href="#" class="add-to-cart btn btn-primary" data-id="1">Add to Cart</a>
-                                        <a href="info.html?id=1" class="more-info btn btn-danger" data-id="1">More Info</a>
-                                    </p>
-                                </div>
-                            </div>
+                    <div id="cart-success" class="alert alert-success messages" role="alert">
+                        <p class="text-center">Food Added!</p>
+                    </div>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div id="option1-slide" class="swiper-slide"></div>
                         </div>
                     </div>
                 </div>
