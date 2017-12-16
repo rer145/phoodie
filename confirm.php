@@ -50,7 +50,7 @@
     
     <div id="body" class="container-fluid">
         <div class="row">
-            <div class="col-xs-12 text-center">
+            <div class="col-xs-12">
                 <p><span class="page-logo glyphicon glyphicon-shopping-cart"></span></p>
                 <hr />
                 <div id="confirm-success" class="alert alert-success messages" role="alert">
@@ -60,24 +60,114 @@
                     <p class="text-center"><span id="confirm-fail-message"></span></p>
                 </div>
 
-                
 
-                <div class="row">
-                    <div class="col-xs-6 col-xs-offset-6 text-right">
-                        <strong>Subtotal:</strong> <span id="cart-subtotal"></span><br />
-                        <strong>Delivery Fee:</strong> <span id="cart-deliveryfee"></span><br />
-                        <strong>Total: </strong> <span id="cart-total"></span>
+                <form id="confirm-form" action="">
+                    <h3>Delivery Address</h3>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="address_select" id="address_select_default" value="1" checked>
+                            Use default address<br />
+                            <div id="confirm-default-address" class="well"></div>
+                        </label>
                     </div>
-                </div>
-                <p>&nbsp;</p>
-                <p class="text-center"><a href="choose.php" class="btn btn-lg btn-default">Continue Swiping</a></p>
-                <p><a href="" class="btn btn-lg btn-primary">Checkout</a></p>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="address_select" id="address_select_temp" value="0">
+                            Use one-time address<br />
+                            <div id="temp-address-form">
+                                <div class="form-group">
+                                    <label for="address1_textbox">Address</label>
+                                    <input type="textbox" class="form-control" id="address1_textbox" name="address1_textbox" placeholder="Address 1" /><br />
+                                    <input type="textbox" class="form-control" id="address2_textbox" name="address2_textbox" placeholder="Address 2" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="city_textbox">City</label>
+                                    <input type="textbox" class="form-control" id="city_textbox" name="city_textbox" placeholder="City" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="state_dropdown">State</label>
+                                    <select id="state_dropdown" class="form-control" name="state_dropdown">
+                                        <option value="">-- Choose a State --</option>
+                                        <option value="PA">Pennsylvania</option>
+                                        <option value="OH">Ohio</option>
+                                        <option value="NY">New York</option>
+                                        <option value="CA">California</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="zip_textbox">Postal Code</label>
+                                    <input type="textbox" class="form-control" id="zip_textbox" name="zip_textbox" placeholder="Postal Code" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone_textbox">Phone Number</label>
+                                    <input type="textbox" class="form-control" id="phone_textbox" name="phone_textbox" placeholder="Phone Number" />
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <hr />
+
+                    <h3>Delivery Address</h3>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="cc_select" id="cc_select_default" value="1" checked>
+                            Use default payment method<br />
+                            <div id="confirm-default-cc" class="well"></div>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="cc_select" id="cc_select_temp" value="0">
+                            Use one-time payment method<br />
+                            <div id="temp-cc-form">
+                                <div class="form-group">
+                                    <label for="ccname_textbox">Name on Card</label>
+                                    <input type="textbox" class="form-control" id="ccname_textbox" name="ccname_textbox" placeholder="Name on Card" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="ccnumber_textbox">CC Number</label>
+                                    <input type="textbox" class="form-control" id="ccnumber_textbox" name="ccnumber_textbox" maxlength="16" placeholder="CC Number" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="ccnumber_textbox">CVV</label>
+                                    <input type="textbox" class="form-control" id="cccvv_textbox" name="cccvv_textbox" maxlength="4" placeholder="CVV" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="ccexpmo_textbox">CC Expiration Month</label>
+                                    <input type="textbox" class="form-control" id="ccexpmo_textbox" name="ccexpmo_textbox" maxlength="2" placeholder="Mo" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="ccexpyr_textbox">CC Expiration Year</label>
+                                    <input type="textbox" class="form-control" id="ccexpyr_textbox" name="ccexpyr_textbox" maxlength="4" placeholder="Year" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="cczip_textbox">CC Postal Code</label>
+                                    <input type="textbox" class="form-control" id="cczip_textbox" name="cczip_textbox" maxlength="10" placeholder="CC Postal Code" />
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3>Totals</h3>
+                            <strong>Subtotal:</strong> <span id="cart-subtotal"></span><br />
+                            <strong>Delivery Fee:</strong> <span id="cart-deliveryfee"></span><br />
+                            <strong>Total: </strong> <span id="cart-total"></span>
+                        </div>
+                    </div>
+                    <p>&nbsp;</p>
+                    <p class="text-center"><a href="#" id="purchase-button" class="btn btn-lg btn-danger">Confirm Purchase</a></p>
+                </form>
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
-        loadCart();
+        loadCheckoutInfo();
     </script>
     
 </body>

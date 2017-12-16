@@ -26,9 +26,10 @@ $(document).ready(function () {
     });
 
     $('#signup-button').click(function() {
+        name = $('#name_textbox').val();
         email = $('#email_textbox').val();
         password = $('#password_textbox').val();
-        registerUser(email, password)
+        registerUser(name, email, password)
     });
 
     $('#login-button').click(function() {
@@ -58,21 +59,40 @@ $(document).ready(function () {
         updateDefaultCC(name, number, cvv, expmo, expyr, zip);
         return false;
     });
+
+    $("#purchase-button").click(function() {
+        completePurchase();
+        return false;
+    });
+
+    $("#address_select_temp").click(function() {
+        $("#temp-address-form").show();
+    });
+    $("#address_select_default").click(function() {
+        $("#temp-address-form").hide();
+    });
+
+    $("#cc_select_temp").click(function() {
+        $("#temp-cc-form").show();
+    });
+    $("#cc_select_default").click(function() {
+        $("#temp-cc-form").hide();
+    });
 });
 
-function registerUser(email, password) {
+function registerUser(name, email, password) {
     $.ajax({
         url: 'ajax.php',
         dataType: 'json',
         method: 'GET',
-        data: { method: "register_user", email: email, password: password }
+        data: { method: "register_user", name: name, email: email, password: password }
     }).done(function(data) {
         console.log(data);
         if (!data.id) {
             $('#signup-error').show();
             $('#error-message').val(data.message);
         } else {
-            window.location.href = 'account.php';
+            window.location.href = 'login.php';
         }
     }).fail(function(msg) {
         console.log(msg);
@@ -91,7 +111,11 @@ function loginUser(email, password) {
             $('#login-error').show();
             $('#login-message').text(data.message);
         } else {
-            window.location.href = 'choose.php';
+            if (data.default_address1 == "") {
+                window.location.href = 'account.php';
+            } else {
+                window.location.href = 'choose.php';
+            }
         }
     }).fail(function(msg) {
         console.log(msg);
@@ -157,9 +181,9 @@ function addToCart(id) {
             method: 'GET',
             data: { method: "add_to_cart", id: id }
         }).done(function(data) {
-            console.log("done: " + data);
+            console.log("done: " + JSON.stringify(data));
         }).fail(function(msg) {
-            console.log("fail: " + msg);
+            console.log("fail: " + JSON.stringify(msg));
         })
     ).then(function() {
         console.log("show modal");
@@ -181,13 +205,13 @@ function removeFromCart(id) {
             method: 'GET',
             data: { method: "remove_from_cart", id: id }
         }).done(function(data) {
-            console.log("done: " + data);
+            console.log("done: " + JSON.stringify(data));
             $("#cartitem-" + id).remove();
             if ($("#cart").empty()) {
                 showEmptyCart();
             }
         }).fail(function(msg) {
-            console.log("fail: " + msg);
+            console.log("fail: " + JSON.stringify(msg));
         })
     ).then(function() {
         console.log("show modal");
@@ -273,6 +297,46 @@ function loadAccountInfo() {
         $("#cczip_textbox").val(data.default_cc_zip);
     }).fail(function(msg) {
         console.log("fail: " + JSON.stringify(msg));
+    });
+}
+
+function loadCheckoutInfo() {
+    $.ajax({
+        url: 'ajax.php',
+        dataType: 'json',
+        method: 'GET',
+        data: { method: "get_account" }
+    }).done(function(data) {
+        console.log("done: " + data);
+        address = data.name + '<br />';
+        address += data.default_address1;
+        if (data.default_address2 != "")
+            address += '<br />' + data.default_address2;
+        address += '<br />' + data.default_city + ', ' + data.default_state + ' ' + data.default_zip;
+        $("#confirm-default-address").html(address);
+
+        cc = data.default_cc_name + '<br />' + data.default_cc_number.substring(0, 4) + '...<br />';
+        cc += data.default_cc_exp_mo + ' / ' + data.default_cc_exp_yr;
+        $("#confirm-default-cc").html(cc);
+    }).fail(function(msg) {
+        console.log("fail: " + JSON.stringify(msg));
+    });
+}
+
+function completePurchase() {
+    $.when(
+        $.ajax({
+            url: 'ajax.php',
+            dataType: 'json',
+            method: 'GET',
+            data: { method: "complete_purchase" }
+        }).done(function(data) {
+            console.log("done: " + data);
+        }).fail(function(msg) {
+            console.log("fail: " + JSON.stringify(msg));
+        })
+    ).then(function() {
+        window.location.href = 'complete.php';
     });
 }
 

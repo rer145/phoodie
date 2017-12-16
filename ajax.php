@@ -82,6 +82,7 @@
 
     if ($method == 'register_user') {
         try {
+            $name = $_GET["name"];
             $email = $_GET["email"];
             $password = $_GET["password"];
 
@@ -101,8 +102,9 @@
                 echo json_encode($err);
             } else {
                 $stmt = $conn->prepare('
-                    INSERT INTO foodie (email, password) VALUES (:email, :password)
+                    INSERT INTO foodie (name, email, password) VALUES (:name, :email, :password)
                 ');
+                $stmt->bindParam(':name', $name);
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':password', $password);
                 $stmt->execute();
@@ -383,12 +385,32 @@
                 $stmt->execute();
 
                 echo '{}';
+
+                $_SESSION["cart_id"] = '';
             } else {
                 $err = new Err;
                 $err->code = 2;
                 $err->message = "Invalid user. Please logout and try again..";
                 echo json_encode($err);
             }
+        } catch (Exception $err) {
+            echo $err->getMessage();
+        }
+    }
+
+    if ($method == 'complete_purchase') {
+        try {
+            $cart_id = $_SESSION["cart_id"];
+
+            $stmt = $conn->prepare('
+                UPDATE cart SET
+                    order_completed = 1
+                WHERE id = :cart_id
+            ');
+            $stmt->bindParam(':cart_id', $cart_id);
+            $stmt->execute();
+
+            echo '{}';
         } catch (Exception $err) {
             echo $err->getMessage();
         }

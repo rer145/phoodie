@@ -16,6 +16,13 @@
         public $order_timestamp;
         public $order_complete;
 
+        public $cc_name;
+        public $cc_number;
+        public $cc_cvv;
+        public $cc_exp_mo;
+        public $cc_exp_yr;
+        public $cc_zip;
+
         public function __construct($data = null)
         {
             // if (is_array($data)) {

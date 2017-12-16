@@ -7,6 +7,7 @@ MUST HAVES
 -account order history
 -favorite meals
 -delivery fee $3 x different restaurants ($0 when empty)
+-fix session/login/signup issues
 
 
 

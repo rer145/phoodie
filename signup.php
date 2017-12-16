@@ -40,6 +40,10 @@
                     
                     <form id="signup" action="">
                         <div class="form-group">
+                            <label for="name_textbox">Name</label>
+                            <input type="text" class="form-control" id="name_textbox" name="name_textbox" placeholder="Name" />
+                        </div>
+                        <div class="form-group">
                             <label for="email_textbox">Email</label>
                             <input type="email" class="form-control" id="email_textbox" name="email_textbox" placeholder="Email" />
                         </div>

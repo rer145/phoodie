@@ -47,3 +47,8 @@ nav .glyphicon {
     background-color: #b80300;
     color: #fff;
 }
+
+#temp-address-form,
+#temp-cc-form {
+    display:none;
+}
