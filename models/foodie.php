@@ -1,14 +1,16 @@
 <?php 
 
-    class Food
+    class Foodie
     {
         public $id;
-        public $name;
-        public $price;
-        public $description;
-        public $photo_url;
-        public $restaurant;
-        public $location;
+        public $session_id;
+        public $delivery_name;
+        public $delivery_address1;
+        public $delivery_address2;
+        public $delivery_city;
+        public $delivery_state;
+        public $delivery_zip;
+        public $delivery_phone;
 
         public function __construct($data = null)
         {

@@ -1,14 +1,12 @@
 <?php 
 
-    class Food
+    class CartItem
     {
         public $id;
-        public $name;
+        public $cart_id;
+        public $food_id;
+        public $name;   //duped in case of changes
         public $price;
-        public $description;
-        public $photo_url;
-        public $restaurant;
-        public $location;
 
         public function __construct($data = null)
         {

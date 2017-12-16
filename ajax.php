@@ -37,3 +37,25 @@
             echo $err->getMessage();
         }
     }
+
+    if ($method == 'add_to_cart') {
+        try {
+            //vars
+            //save current cart id in session
+            //update other fields later
+
+            $stmt = $this->connection->prepare('
+                INSERT INTO cart (name, franchise_id, sequence_no)
+                VALUES (:name, :franchise_id, :sequence_no)
+            ');
+            $stmt->bindParam(':name', $class->name);
+            $stmt->bindParam(':franchise_id', $class->franchise_id);
+            $stmt->bindParam(':sequence_no', $class->sequence_no);
+            $stmt->execute();
+
+            $id = $this->connection->lastInsertId();
+            return $this->get($id);
+        } catch (Exception $err) {
+            echo $err->getMessage();
+        }
+    }
