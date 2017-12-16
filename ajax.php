@@ -1,4 +1,5 @@
 <?php 
+    session_start();
 
     include_once('models/foodie.php');
     include_once('models/food.php');
@@ -42,28 +43,6 @@
         }
     }
 
-    if ($method == 'add_to_cart') {
-        // try {
-        //     //vars
-        //     //save current cart id in session
-        //     //update other fields later
-
-        //     $stmt = $this->connection->prepare('
-        //         INSERT INTO cart (name, franchise_id, sequence_no)
-        //         VALUES (:name, :franchise_id, :sequence_no)
-        //     ');
-        //     $stmt->bindParam(':name', $class->name);
-        //     $stmt->bindParam(':franchise_id', $class->franchise_id);
-        //     $stmt->bindParam(':sequence_no', $class->sequence_no);
-        //     $stmt->execute();
-
-        //     $id = $this->connection->lastInsertId();
-        //     return $this->get($id);
-        // } catch (Exception $err) {
-        //     echo $err->getMessage();
-        // }
-    }
-
     if ($method == 'validate_user') {
         try {
             $email = $_GET["email"];
@@ -87,6 +66,7 @@
                     echo json_encode($err);
                 } else {
                     $_SESSION["user_id"] = $foodie[0]->id;
+                    $_SESSION["user_email"] = $foodie[0]->email;
                     echo json_encode($foodie[0]);
                 }
             } else {
@@ -137,6 +117,92 @@
                 $stmt->setFetchMode(PDO::FETCH_CLASS, 'Foodie');
                 $foodie = $stmt->fetch();
                 echo json_encode($foodie);
+            }
+        } catch (Exception $err) {
+            echo $err->getMessage();
+        }
+    }
+    
+    if ($method == 'add_to_cart') {
+        try {
+            $id = $_GET["id"];
+            $sid = session_id();
+
+            //check if cart is started
+            if (!isset($_SESSION["cart_id"])) {
+                $stmt = $conn->prepare('
+                    INSERT INTO cart (foodie_id, session_id, email)
+                    VALUES (:foodie_id, :session_id, :email)
+                ');
+                $stmt->bindParam(':foodie_id', $_SESSION["user_id"]);
+                $stmt->bindParam(':session_id', $sid);
+                $stmt->bindParam(':email', $_SESSION["user_email"]);
+                $stmt->execute();
+
+                $id = $conn->lastInsertId();
+                $_SESSION["cart_id"] = $id;
+            }
+
+            //add item to cart
+            if (isset($_SESSION["cart_id"])) {
+                //get food item
+                $stmt = $conn->prepare('
+                    SELECT * FROM food WHERE id = :id
+                ');
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+
+                $stmt->setFetchMode(PDO::FETCH_CLASS, 'Food');
+                $food = $stmt->fetch();
+
+
+                $stmt = $conn->prepare('
+                    INSERT INTO cartitem (cart_id, food_id, name, price)
+                    VALUES (:cart_id, :food_id, :name, :price)
+                ');
+                $stmt->bindParam(':cart_id', $_SESSION["cart_id"]);
+                $stmt->bindParam(':food_id', $food->id);
+                $stmt->bindParam(':name', $food->name);
+                $stmt->bindParam(':price', $food->price);
+                $stmt->execute();
+
+                $id = $conn->lastInsertId();
+                $stmt = $conn->prepare('
+                    SELECT * FROM cartitem WHERE id = :id
+                ');
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+
+                $stmt->setFetchMode(PDO::FETCH_CLASS, 'CartItem');
+                $cart = $stmt->fetch();
+            }
+        } catch (Exception $err) {
+            echo $err->getMessage();
+        }
+    }
+
+    if ($method == 'get_cart') {
+        try {
+            if (isset($_SESSION["cart_id"])) {
+                $stmt = $conn->prepare('
+                    SELECT * FROM cart WHERE id = :id
+                ');
+                $stmt->bindParam(':id', $_SESSION["cart_id"]);
+                $stmt->execute();
+                $stmt->setFetchMode(PDO::FETCH_CLASS, 'Cart');
+                $cart = $stmt->fetch();
+                
+                //get food items
+                $stmt = $conn->prepare('
+                    SELECT * FROM cartitem WHERE cart_id = :id
+                ');
+                $stmt->bindParam(':id', $cart->id);
+                $stmt->execute();
+
+                $stmt->setFetchMode(PDO::FETCH_CLASS, 'CartItem');
+                $items = $stmt->fetchAll();
+
+                echo json_encode($items);
             }
         } catch (Exception $err) {
             echo $err->getMessage();

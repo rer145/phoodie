@@ -12,7 +12,8 @@
 
 
 $(document).ready(function () {
-    $('.add-to-cart').click(function() {
+    //$('.add-to-cart').click(function() {
+    $('body').on('click', '.add-to-cart', function() {
         id = $(this).data('id');
         console.log(id);
         addToCart(id);
@@ -43,7 +44,7 @@ function registerUser(email, password) {
             $('#signup-error').show();
             $('#error-message').val(data.message);
         } else {
-            window.location.href = 'login.html';
+            window.location.href = 'login.php';
         }
     }).fail(function(msg) {
         console.log(msg);
@@ -62,7 +63,7 @@ function loginUser(email, password) {
             $('#login-error').show();
             $('#login-message').text(data.message);
         } else {
-            window.location.href = 'choose.html';
+            window.location.href = 'choose.php';
         }
     }).fail(function(msg) {
         console.log(msg);
@@ -94,18 +95,6 @@ function initSwipe() {
     });
 }
 
-function addToCart(id) {
-
-}
-
-function loadFoodInfo(id) {
-    if (!id) {
-        id = getParameterByName('id');
-    }
-
-    console.log(id);
-}
-
 function getFoodChoices() {
     $.when(
         $.ajax({
@@ -117,10 +106,10 @@ function getFoodChoices() {
             console.log(data);
 
             var food = data;
-            if (food.length > 1) {
+            if (food.length > 0) {
                 var items = [];
                 for (var i = 0; i < food.length; i++) {
-                    items.push('<div id="option' + food[i].id + '-slide" class="swiper-slide"><img src="' + food[i].photo_url + '" /><br /><p><strong>' + food[i].name + ' - $' + food[i].price + '</strong></p><p>' + food[i].description + '</p><p><a href="#" class="add-to-cart btn btn-primary" data-id="' + food[i].id + '">Add to Cart</a> <a href="info.html?id=' + food[i].id + '" class="more-info btn btn-danger" data-id="' + food[i].id + '">More Info</a></p></div>');
+                    items.push('<div id="option' + food[i].id + '-slide" class="swiper-slide"><img src="' + food[i].photo_url + '" /><br /><p><strong>' + food[i].name + ' - $' + food[i].price + '</strong></p><p>' + food[i].description + '</p><p><a href="#" class="add-to-cart btn btn-primary" data-id="' + food[i].id + '">Add to Cart</a> <a href="info.php?id=' + food[i].id + '" class="more-info btn btn-danger" data-id="' + food[i].id + '">More Info</a></p></div>');
                 }
                 $('.swiper-wrapper').html(items.join(""));
             }
@@ -130,4 +119,51 @@ function getFoodChoices() {
     ).then(function() {
         initSwipe();
     });
+}
+
+function addToCart(id) {
+    $.when(
+        $.ajax({
+            url: 'ajax.php',
+            dataType: 'json',
+            method: 'GET',
+            data: { method: "add_to_cart", id: id }
+        }).done(function(data) {
+            console.log(data);
+            //update cart item, show checkout button
+            //show message
+        }).fail(function(msg) {
+            console.log(msg);
+        })
+    );
+}
+
+function loadCart() {
+    $.when(
+        $.ajax({
+            url: 'ajax.php',
+            dataType: 'json',
+            method: 'GET',
+            data: { method: "get_cart" }
+        }).done(function(data) {
+            console.log(data);
+            if (data.length > 0) {
+                var items = [];
+                for (var i = 0; i < data.length; i++) {
+                    items.push('<li>' + data[i].name + '</li>');
+                }
+                $('#cart').html('<ul>' + items.join("") + '</ul>');
+            }
+        }).fail(function(msg) {
+            console.log(msg);
+        })
+    );
+}
+
+function loadFoodInfo(id) {
+    if (!id) {
+        id = getParameterByName('id');
+    }
+
+    console.log(id);
 }

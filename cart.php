@@ -1,3 +1,7 @@
+<?php
+    //session_start();
+    include('session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,7 +19,6 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
         <script src="js/app.js"></script>
         <script src="js/util.js"></script>
         
@@ -23,17 +26,24 @@
     </head>
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-3 text-left">
-                        <!-- <span class="glyphicon glyphicon-user"></span> -->
-                    </div>
-                    <div class="col-xs-6 text-center">
-                        <span id="logo-small"><a href="index.html">Foodie</a></span>
-                    </div>
-                    <div class="col-xs-3 text-right">
-                        <!-- <span class="glyphicon glyphicon-user"></span> -->
-                    </div>
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="choose.php">Foodie</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="cart.php">My Cart</a></li>
+                        <li><a href="choose.php">Find Food</a></li>
+                        <li><a href="account.php">My Account</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="logout.php">Logout</a></li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -41,11 +51,14 @@
         <div id="body" class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 text-center">
-                    <p><a id="login-button" href="login.html" class="btn btn-lg btn-primary">Login</a></p>
-                    <p><a id="signup-button" href="signup.html" class="btn btn-lg btn-info">Sign Up</a></p>
+                    <div id="cart"></div>
                 </div>
             </div>
         </div>
+
+        <script type="text/javascript">
+            loadCart();
+        </script>
         
     </body>
 </html>
