@@ -19,28 +19,14 @@
         <script src="js/app.js"></script>
         <script src="js/util.js"></script>
         
-        <title>Foodie</title>
+        <title>Phoodie</title>
     </head>
-    <body>
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-3 text-left">
-                        <!-- <span class="glyphicon glyphicon-user"></span> -->
-                    </div>
-                    <div class="col-xs-6 text-center">
-                        <span id="logo-small"><a href="index.html">Foodie</a></span>
-                    </div>
-                    <div class="col-xs-3 text-right">
-                        <!-- <span class="glyphicon glyphicon-user"></span> -->
-                    </div>
-                </div>
-            </div>
-        </nav>
-        
+    <body id="page-login">
         <div id="body" class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 text-center">
+
+                    <p><img src="http://www.fillmurray.com/200/100" class="img-responsive center-block" /></p>
 
                     <div id="login-error" class="messages">
                         <div class="alert alert-danger" role="alert">

@@ -1,5 +1,7 @@
 body {
     margin-top: 75px;
+    background-color: #f70d1a;
+    color: #fff;
 }
 
 .swiper-container {
@@ -17,4 +19,13 @@ nav .glyphicon {
 
 .messages {
     display:none;
+}
+
+.well {
+    color: #000;
+    background-color: #c0c0c0;
+}
+
+.page-logo {
+    font-size: 32px;
 }

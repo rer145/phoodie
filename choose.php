@@ -25,7 +25,7 @@
         <script src="js/app.js"></script>
         <script src="js/util.js"></script>
 
-        <title>Foodie</title>
+        <title>Phoodie</title>
     </head>
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">
@@ -37,7 +37,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="choose.php">Foodie</a>
+                    <a class="navbar-brand" href="choose.php">Phoodie</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">

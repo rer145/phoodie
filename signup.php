@@ -19,7 +19,7 @@
         <script src="js/app.js"></script>
         <script src="js/util.js"></script>
         
-        <title>Foodie</title>
+        <title>Phoodie</title>
     </head>
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">
@@ -29,7 +29,7 @@
                         <!-- <span class="glyphicon glyphicon-user"></span> -->
                     </div>
                     <div class="col-xs-6 text-center">
-                        <span id="logo-small"><a href="index.html">Foodie</a></span>
+                        <span id="logo-small"><a href="index.html">Phoodie</a></span>
                     </div>
                     <div class="col-xs-3 text-right">
                         <!-- <span class="glyphicon glyphicon-user"></span> -->

@@ -19,10 +19,10 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="js/app.js"></script>
         <script src="js/util.js"></script>
+        <script src="js/app.js"></script>
         
-        <title>Foodie</title>
+        <title>Phoodie</title>
     </head>
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">
@@ -34,7 +34,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="choose.php">Foodie</a>
+                    <a class="navbar-brand" href="choose.php">Phoodie</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -51,7 +51,19 @@
         <div id="body" class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 text-center">
+                    <p><span class="page-logo glyphicon glyphicon-shopping-cart"></span></p>
+                    <p>&nbsp;</p>
                     <div id="cart"></div>
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-6 text-right">
+                            <strong>Subtotal:</strong> <span id="cart-subtotal"></span><br />
+                            <strong>Delivery Fee:</strong> <span id="cart-deliveryfee"></span><br />
+                            <strong>Total: </strong> <span id="cart-total"></span>
+                        </div>
+                    </div>
+                    <p>&nbsp;</p>
+                    <p><a href="choose.php" class="btn btn-lg btn-default">Continue Swiping</a></p>
+                    <p><a href="" class="btn btn-lg btn-primary">Checkout</a></p>
                 </div>
             </div>
         </div>

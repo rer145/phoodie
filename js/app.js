@@ -149,10 +149,19 @@ function loadCart() {
             console.log(data);
             if (data.length > 0) {
                 var items = [];
+                subtotal = 0;
+                deliveryfee = 3.0;
+                total = 0;
                 for (var i = 0; i < data.length; i++) {
-                    items.push('<li>' + data[i].name + '</li>');
+                    items.push('<div class="row form-inline"><div class="col-xs-8 text-left">' + data[i].name + '<br />Qty: <input type="text" maxlength="2" class="form-control" width="20" value="' + data[i].quantity + '" /> <a href="" class="small">Update</a> / <a href="" class="small">Remove</a></div><div class="col-xs-4 text-right">$' + data[i].price + '</div></div>');
+
+                    subtotal += data[i].price * data[i].quantity;
                 }
-                $('#cart').html('<ul>' + items.join("") + '</ul>');
+                total = subtotal + deliveryfee;
+                $('#cart').html(items.join(""));
+                $("#cart-subtotal").html(formatCurrency(subtotal));
+                $("#cart-deliveryfee").html(formatCurrency(deliveryfee));
+                $("#cart-total").html(formatCurrency(total));
             }
         }).fail(function(msg) {
             console.log(msg);
@@ -166,4 +175,9 @@ function loadFoodInfo(id) {
     }
 
     console.log(id);
+}
+
+
+function formatCurrency(val) {
+    return '$' + parseFloat(val, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
 }

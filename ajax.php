@@ -139,8 +139,8 @@
                 $stmt->bindParam(':email', $_SESSION["user_email"]);
                 $stmt->execute();
 
-                $id = $conn->lastInsertId();
-                $_SESSION["cart_id"] = $id;
+                $cid = $conn->lastInsertId();
+                $_SESSION["cart_id"] = $cid;
             }
 
             //add item to cart
@@ -155,7 +155,7 @@
                 $stmt->setFetchMode(PDO::FETCH_CLASS, 'Food');
                 $food = $stmt->fetch();
 
-
+                //check if item already exists in cart, and update quantity?
                 $stmt = $conn->prepare('
                     INSERT INTO cartitem (cart_id, food_id, name, price)
                     VALUES (:cart_id, :food_id, :name, :price)

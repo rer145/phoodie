@@ -7,6 +7,7 @@
         public $food_id;
         public $name;   //duped in case of changes
         public $price;
+        public $quantity;
 
         public function __construct($data = null)
         {
