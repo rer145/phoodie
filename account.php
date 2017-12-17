@@ -105,7 +105,7 @@
                             <input type="textbox" class="form-control" id="cczip_textbox" name="cczip_textbox" maxlength="10" placeholder="CC Postal Code" />
                         </div>
 
-                        <a href="#" id="cc-button" class="btn btn-primary">Save Default Payemnt Method</a>
+                        <a href="#" id="cc-button" class="btn btn-primary">Save Default Payment Method</a>
                     </form>
 
                 </div>
