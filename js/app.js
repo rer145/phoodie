@@ -179,7 +179,7 @@ function getFoodChoices() {
             if (food.length > 0) {
                 var items = [];
                 for (var i = 0; i < food.length; i++) {
-                    items.push('<div id="option' + food[i].id + '-slide" class="swiper-slide"><img src="img/' + food[i].photo_url + '" class="img-responsive" /><br /><p><strong>' + food[i].name + ' - $' + food[i].price + '</strong></p><p>' + food[i].restaurant + '</p><p class="text-center"><div class="row"><div class="col-xs-4 text-center"><a href="#" class="add-to-cart btn btn-success" data-id="' + food[i].id + '"><span class="glyphicon glyphicon-plus-sign"></span></a></div><div class="col-xs-4 text-center"><a href="#" class="more-info btn btn-info" data-id="' + food[i].id + '"><span class="glyphicon glyphicon-info-sign"></span></a></div><div class="col-xs-4 text-center"><a href="cart.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span></a></div></div></p></div>');
+                    items.push('<div id="option' + food[i].id + '-slide" class="swiper-slide"><img src="img/' + food[i].photo_url + '" class="img-responsive" /><br /><p><strong>' + food[i].name + ' - $' + food[i].price + '</strong></p><p>' + food[i].restaurant + '</p><p class="text-center"><div class="row"><div class="col-xs-4 text-center"><a href="#" class="add-to-cart btn btn-success" data-id="' + food[i].id + '">Add Item</a></div><div class="col-xs-4 text-center"><a href="#" class="more-info btn btn-info" data-id="' + food[i].id + '">Info</a></div><div class="col-xs-4 text-center"><a href="cart.php" class="btn btn-primary">Checkout</a></div></div></p></div>');
                 }
                 $('.swiper-wrapper').html(items.join(""));
             }
