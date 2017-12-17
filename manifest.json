@@ -1,5 +1,6 @@
 {
     "name": "Phoodie",
+    "short_name": "Phoodie",
     "icons": [
         {
             "src": "img/icons/android-chrome-192x192.png",
@@ -14,5 +15,7 @@
     ],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "display": "standalone"
+    "display": "standalone",
+    "start_url": "/index.php",
+    "orientation": "portrait"
 }

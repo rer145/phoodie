@@ -15,19 +15,16 @@ $(document).ready(function () {
     //$('.add-to-cart').click(function() {
     $('body').on('click', '.add-to-cart', function() {
         id = $(this).data('id');
-        console.log(id);
         addToCart(id);
     });
 
     $('body').on('click', '.remove-cart', function() {
         id = $(this).data('id');
-        console.log(id);
         removeFromCart(id);
     });
 
     $('body').on('click', '.more-info', function() {
         id = $(this).data('id');
-        console.log(id);
         loadFoodInfo(id);
     });
 
@@ -96,6 +93,15 @@ $(document).ready(function () {
     $("#cc_select_default").click(function() {
         $("#temp-cc-form").hide();
     });
+
+
+    // if ('serviceWorker' in navigator) {
+    //     navigator.serviceWorker
+    //         .register('./service-worker.js')
+    //         .then(function() {
+    //             console.log('[ServiceWorker] Registered');
+    //         });
+    // }
 });
 
 function registerUser(name, email, password) {
@@ -105,7 +111,7 @@ function registerUser(name, email, password) {
         method: 'GET',
         data: { method: "register_user", name: name, email: email, password: password }
     }).done(function(data) {
-        console.log(data);
+        //console.log(data);
         if (!data.id) {
             $('#signup-error').show();
             $('#error-message').val(data.message);
@@ -124,7 +130,7 @@ function loginUser(email, password) {
         method: 'GET',
         data: { method: "validate_user", email: email, password: password }
     }).done(function(data) {
-        console.log(data);
+        //console.log(data);
         if (!data.id) {
             $('#login-error').show();
             $('#login-message').text(data.message);
@@ -173,7 +179,7 @@ function getFoodChoices() {
             method: 'GET',
             data: { method: "get_food" }
         }).done(function(data) {
-            console.log(data);
+            //console.log(data);
 
             var food = data;
             if (food.length > 0) {
@@ -184,7 +190,7 @@ function getFoodChoices() {
                 $('.swiper-wrapper').html(items.join(""));
             }
         }).fail(function(msg) {
-            console.log(msg);
+            console.log(JSON.stringify(msg));
         })
     ).then(function() {
         initSwipe();
@@ -204,9 +210,7 @@ function addToCart(id) {
             console.log("fail: " + JSON.stringify(msg));
         })
     ).then(function() {
-        console.log("show modal");
         $("#cart-success").show();
-        console.log("slide up");
         window.setTimeout(function() {
             $("#cart-success").slideUp(500, function() {
                 $(this).hide();
@@ -232,10 +236,8 @@ function removeFromCart(id) {
             console.log("fail: " + JSON.stringify(msg));
         })
     ).then(function() {
-        console.log("show modal");
         $("#cart-success").show();
         $("#cart-success-message").html("Item was removed successfully!");
-        console.log("slide up");
         window.setTimeout(function() {
             $("#cart-success").slideUp(500, function() {
                 $(this).hide();
@@ -258,7 +260,7 @@ function loadCart() {
             method: 'GET',
             data: { method: "get_cart" }
         }).done(function(data) {
-            console.log(data);
+            //console.log(data);
             
             if (data != "" && data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
