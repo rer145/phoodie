@@ -76,6 +76,13 @@ $(document).ready(function () {
         return false;
     });
 
+    $("#checkout-button").click(function() {
+        st = $("#cart-subtotal").text();
+        df = $("#cart-deliveryfee").text();
+        t = $("#cart-total").text();
+        window.location.href = 'confirm.php?st=' + st + ' &df=' + df + '&t=' + t;
+    });
+
     $("#address_select_temp").click(function() {
         $("#temp-address-form").show();
     });
@@ -332,26 +339,54 @@ function loadAccountInfo() {
 }
 
 function loadCheckoutInfo() {
-    $.ajax({
-        url: 'ajax.php',
-        dataType: 'json',
-        method: 'GET',
-        data: { method: "get_account" }
-    }).done(function(data) {
-        console.log("done: " + data);
-        address = data.name + '<br />';
-        address += data.default_address1;
-        if (data.default_address2 != "")
-            address += '<br />' + data.default_address2;
-        address += '<br />' + data.default_city + ', ' + data.default_state + ' ' + data.default_zip;
-        $("#confirm-default-address").html(address);
+    st = getParameterByName('st');
+    df = getParameterByName('df');
+    t = getParameterByName('t');
+    
+    $.when(
+        $.ajax({
+            url: 'ajax.php',
+            dataType: 'json',
+            method: 'GET',
+            data: { method: "get_account" }
+        }).done(function(data) {
+            console.log("done: " + data);
+            address = data.name + '<br />';
+            address += data.default_address1;
+            if (data.default_address2 != "")
+                address += '<br />' + data.default_address2;
+            address += '<br />' + data.default_city + ', ' + data.default_state + ' ' + data.default_zip;
+            $("#confirm-default-address").html(address);
 
-        cc = data.default_cc_name + '<br />' + data.default_cc_number.substring(0, 4) + '...<br />';
-        cc += data.default_cc_exp_mo + ' / ' + data.default_cc_exp_yr;
-        $("#confirm-default-cc").html(cc);
-    }).fail(function(msg) {
-        console.log("fail: " + JSON.stringify(msg));
-    });
+            cc = data.default_cc_name + '<br />' + data.default_cc_number.substring(0, 4) + '...<br />';
+            cc += data.default_cc_exp_mo + ' / ' + data.default_cc_exp_yr;
+            $("#confirm-default-cc").html(cc);
+
+            $("#cart-subtotal").html(st);
+            $("#cart-deliveryfee").html(df);
+            $("#cart-total").html(t);
+        }).fail(function(msg) {
+            console.log("fail: " + JSON.stringify(msg));
+        })
+    );
+}
+
+function loadConfirmation() {
+    var d1 = new Date (),
+        d2 = new Date ( d1 );
+        d2.setMinutes ( d1.getMinutes() + 30 );
+
+    h = d2.getHours();
+    if (d2.getHours() == 0)
+        h = '12';
+    if (d2.getHours() > 12)
+        h = d2.getHours() - 12;
+
+    ampm = 'AM';
+    if (d2.getHours() > 12)
+        ampm = 'PM';
+
+    $("#confirm-delivery-date").html(d2.getMonth() + '/' + d2.getDate() + '/' + d2.getFullYear() + ' ' + h + ':' + d2.getMinutes() + ' '  + ampm + '.');
 }
 
 function completePurchase() {
@@ -370,7 +405,6 @@ function completePurchase() {
         window.location.href = 'complete.php';
     });
 }
-
 
 function updateDefaultAddress(address1, address2, city, state, zip, phone) {
     $.when(
@@ -420,4 +454,14 @@ function updateDefaultCC(name, number, cvv, expmo, expyr, zip) {
 
 function formatCurrency(val) {
     return '$' + parseFloat(val, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+}
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }

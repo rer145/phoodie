@@ -31,10 +31,14 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2>Your order is completed!</h2>
-                <p>Your order will be delivered by MM dd, YYYY</p>
+                <p>Your order will be delivered by <span id="confirm-delivery-date"></span></p>
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        loadConfirmation();
+    </script>
     
 </body>
 </html>

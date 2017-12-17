@@ -48,7 +48,7 @@
                     </div>
                     <p>&nbsp;</p>
                     <p class="text-center"><a href="choose.php" class="btn btn-lg btn-default">Continue Swiping</a></p>
-                    <p><a href="confirm.php" class="btn btn-lg btn-primary">Checkout</a></p>
+                    <p><a href="#" id="checkout-button" class="btn btn-lg btn-primary">Checkout</a></p>
                 </div>
             </div>
         </div>
