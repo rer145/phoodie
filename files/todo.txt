@@ -1,11 +1,8 @@
 MUST HAVES
 -----------------------------------
 
--confirm purchase page with address/cc
-	-wire up alt address/cc fields
 -account order history
 -favorite meals
--fix session/login/signup issues
 
 
 

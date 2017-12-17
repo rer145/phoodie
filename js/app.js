@@ -129,7 +129,7 @@ function loginUser(email, password) {
             $('#login-error').show();
             $('#login-message').text(data.message);
         } else {
-            if (data.default_address1 == "") {
+            if (!(data.default_address1) || data.default_address1 == "") {
                 window.location.href = 'account.php';
             } else {
                 window.location.href = 'choose.php';
@@ -382,11 +382,15 @@ function loadConfirmation() {
     if (d2.getHours() > 12)
         h = d2.getHours() - 12;
 
+    m = d2.getMinutes();
+    if (m < 10)
+        m = '0' + String(m);
+
     ampm = 'AM';
     if (d2.getHours() > 12)
         ampm = 'PM';
 
-    $("#confirm-delivery-date").html(d2.getMonth() + '/' + d2.getDate() + '/' + d2.getFullYear() + ' ' + h + ':' + d2.getMinutes() + ' '  + ampm + '.');
+    $("#confirm-delivery-date").html(d2.getMonth() + '/' + d2.getDate() + '/' + d2.getFullYear() + ' ' + h + ':' + m + ' '  + ampm + '.');
 }
 
 function completePurchase() {

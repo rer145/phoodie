@@ -431,6 +431,8 @@
             $stmt->bindParam(':cart_id', $cart_id);
             $stmt->execute();
 
+            $_SESSION["cart_id"];
+
             echo '{}';
         } catch (Exception $err) {
             echo $err->getMessage();
